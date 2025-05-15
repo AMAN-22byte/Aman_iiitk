@@ -13,6 +13,7 @@ app.use(express.urlencoded({extended: true}))
 
 app.get('/', (req, res) => {
   res.send('Hello, Aman!');
+  
 });
 app.post('/register',async(req,res)=>{
     // res.send("Register Page")
