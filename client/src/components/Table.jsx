@@ -35,24 +35,6 @@ const Table = () => {
             </tr>
         </thead>
         <tbody>
-             <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Longest common subsequence
-                </th>
-                {/* <td className="px-6 py-4">
-                    1000
-                </td> */}
-                <td className="px-6 py-4">
-                    Med
-                </td>
-                <td className="px-6 py-4">
-                    dynamic
-                </td>
-                <td className="px-6 py-4">
-                    <Link to='/LCS' className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Solve</Link>
-                    {/* <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Solve</a> */}
-                </td>
-            </tr>
             {problems.map((problem, index) => (
           <tr key={index} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{problem.Title}</th>
@@ -60,7 +42,7 @@ const Table = () => {
             <td className="px-6 py-4">{problem.Difficulty}</td>
             <td className="px-6 py-4">dynamic</td>
             <td className="px-6 py-4">
-                    <Link to="/`${problem.Title}`" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Solve</Link>
+                    <Link key={problem._id} to={`/problems/${encodeURIComponent(problem.Title)}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Solve</Link>
                     {/* <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Solve</a> */}
                 </td>
             {/* <td className="px-6 py-4">{problem.tags.join(', ')}</td> */}
