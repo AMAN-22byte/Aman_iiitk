@@ -138,6 +138,23 @@ app.post('/contestset', async (req, res) => {
 });
 
 
+app.get('/api/problems/:title', async (req, res) => {
+  try {
+    const title = req.params.title;
+    const problem = await Problem.findOne({ Title: title });
+
+    if (!problem) {
+      return res.status(404).json({ message: "Problem not found" });
+    }
+
+    res.status(200).json(problem);
+  } catch (error) {
+    console.error("Error fetching problem:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 
 
 app.listen(process.env.PORT, () => {
