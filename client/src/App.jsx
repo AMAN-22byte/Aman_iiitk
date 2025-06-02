@@ -19,10 +19,18 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/problems/:title" element={<Compiler_LCS/>} />
-          <Route path="/set" element={<SetProblem/>}/>
-          <Route path="/contest" element={<Basecontest/>}/>
-          <Route path="/contestset" element={<Setcontest/>}/>
+          <Route path="/problems/:title" element={<PrivateRoute>
+        <Compiler_LCS />
+      </PrivateRoute>} />
+          <Route path="/set" element={ <PrivateRoute>
+        <SetProblem />
+      </PrivateRoute>}/>
+          <Route path="/contest" element={<PrivateRoute>
+        <Basecontest />
+      </PrivateRoute>}/>
+          <Route path="/contestset" element={<PrivateRoute>
+        <Setcontest />
+      </PrivateRoute>}/>
           <Route
             path="/"
             element={

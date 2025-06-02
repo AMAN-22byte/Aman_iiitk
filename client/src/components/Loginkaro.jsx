@@ -1,35 +1,36 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { IoIosMail } from "react-icons/io";
 import { FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import ToggleButton from "./ToggleButton";
-import SignUp from "./SignUp"; // Make sure this component exists and is correctly named
+import SignUp from "./SignUp";
 
 const Loginkaro = ({ onClose }) => {
-  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    const data = { email, password };
 
     try {
       const response = await fetch("http://localhost:5000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ email, password }),
       });
 
       const result = await response.json();
 
       if (response.ok) {
         alert("Login Successful");
-        console.log("Logged in user:", result);
         localStorage.setItem("token", result.token);
-        // close modal or redirect
-        onClose();
+        console.log("Logged in user:", result);
+
+        if (onClose) onClose();
+        navigate("/"); // Navigate to homepage
       } else {
         alert("Login failed: " + (result.message || "Unknown error"));
       }
@@ -42,16 +43,16 @@ const Loginkaro = ({ onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/30">
       <div className="relative bg-white rounded-lg p-6 shadow-lg w-full max-w-sm">
-        <button
-          onClick={onClose}
-          className="absolute top-2 right-3 text-gray-500 hover:text-gray-800 text-xl"
-        >
-          &times;
-        </button>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="absolute top-2 right-3 text-gray-500 hover:text-gray-800 text-xl"
+          >
+            &times;
+          </button>
+        )}
 
-        <h2 className="text-xl font-bold mb-4 text-purple-700">
-          Login to Your Account
-        </h2>
+        <h2 className="text-xl font-bold mb-4 text-purple-700">Login to Your Account</h2>
         <p className="text-sm mb-4 text-purple-400">
           Welcome back! Please enter your credentials to log in.
         </p>
@@ -99,7 +100,8 @@ const Loginkaro = ({ onClose }) => {
             Forget Password?
           </p>
 
-          <ToggleButton />
+          {/* Optional: ToggleButton if needed */}
+          {/* <ToggleButton /> */}
 
           <button
             type="submit"
